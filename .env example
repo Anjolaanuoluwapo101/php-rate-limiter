@@ -1,0 +1,29 @@
+# STORAGE OPTIONS: redis | file | database | nosql(nosql support coming soon)
+STORAGE_DRIVER=database 
+
+# REDIS CONFIG (only if redis is used)
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+REDIS_PASSWORD= #leave empty if no password is set
+
+
+
+#DATABASE CONFIG (only if database is used,supports all databases that are supported by the PHP PDO driver)
+DB_DRIVER=sqlite      # Or 'sqlite' / 'pgsql' or any of the 12 Relational Database Supported by PDO
+DB_HOST=localhost
+DB_NAME=my_database
+DB_USER=root
+DB_PASS=password
+
+#SQLITE CONFIG (only if sqlite is used)
+DB_PATH=database.sqlite  # Path to your SQLite database file.
+
+# FILE CONFIG (only if file is used)
+STORAGE_STRICT_MODE = false #leave this alone.
+STORAGE_FILE_PATH= rate_limit.json
+ANALYTICS_STORAGE_FILE = analytics_storage.json #default file path for analytics,if not present..a new one is created 
+RATELIMITER_STORAGE_FILE = ratelimiter_storage.json #default file path for rate limiter,if not present..a new one is created 
+
+
+STORAGE_LOCK_TIMEOUT=5 #lock file for maximum of secs. Default is 5
+STORAGE_LOCK_WAIT=500000 #check if file is still locked every amount of secs you set. Default is 500milliseconds (half a sec)
