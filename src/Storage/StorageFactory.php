@@ -19,7 +19,7 @@ class StorageFactory extends Storage
         $this->loadEnv();
     }
 
-    public static function create(string $type = null): StorageInterface
+    public static function create(?string $type = null): StorageInterface
     {
         
         (new StorageFactory)->loadEnv(); # Load environment variables

@@ -33,7 +33,9 @@ class DatabaseStorage extends Storage implements StorageInterface
         // SQLite specific setup
         if ($dbDriver === 'sqlite') {
             // echo $_SERVER['DOCUMENT_ROOT'];
-            $dbPath = dirname(__DIR__)."/StorageFiles/".$_ENV['DB_FILE_NAME'] ?? dirname(__DIR__) . '/StorageFiles/storage.sqlite'; // Default SQLite path if not provided
+            $basePath = $this->getProjectRoot();
+            // die($basePath);
+            $dbPath =  $basePath."/RateLimiterFiles/".$_ENV['DB_FILE_NAME'] ?? dirname(__DIR__) . '/StorageFiles/storage.sqlite'; // Default SQLite path if not provided
             if (!file_exists($dbPath)) {
                 // Create empty SQLite file
                 $dir = dirname($dbPath);

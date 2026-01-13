@@ -23,23 +23,23 @@ class Analytics
         $isRedis = get_class($this->storage) === 'PHPRateLimiter\Storage\RedisStorage';
 
         if ($isRedis) {
-            $value = $this->storage->get("$this->prefix$event");
+            $value = $this->storage->get("$this->prefix:$event");
             $value = $value !== null ? (int)$value : 0;
 
             if ($value === 0) {
-                $this->storage->set("$this->prefix$event", 1,  time());
+                $this->storage->set("$this->prefix:$event", 1,  time());
             } else {
-                $this->storage->increment("$this->prefix$event");
+                $this->storage->increment("$this->prefix:$event");
             }
         } else {
-            $array = $this->storage->get("$this->prefix$event");
+            $array = $this->storage->get("$this->prefix:$event");
 
             if(empty($array) || is_null($array) || !isset($array)){ 
                 $attempts = 1;
-                $this->storage->set("$this->prefix$event" , $attempts , time());
+                $this->storage->set("$this->prefix:$event" , $attempts , time());
             }else{
                 $value = ((int) $array['value']) + 1;
-                $this->storage->set("$this->prefix$event" , $value , time());
+                $this->storage->set("$this->prefix:$event" , $value , time());
             }
         }
         usleep(200000);
@@ -48,7 +48,7 @@ class Analytics
 
     public function getEventCount(string $event): int
     {
-        $array = $this->storage->get("$this->prefix$event");
+        $array = $this->storage->get("$this->prefix:$event");
         // var_dump($array);
         if(!isset($array) || $array === null){ 
             $count = 1;
@@ -64,7 +64,9 @@ class Analytics
 
     public function resetEvent(string $event): void
     {
-        $this->storage->delete("$this->prefix$event");
+        $this->storage->delete("$this->prefix:$event");
     }
+
+    // Retrieve all Events
 }
 

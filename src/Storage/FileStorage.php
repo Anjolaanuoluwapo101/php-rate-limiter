@@ -14,13 +14,13 @@ class FileStorage extends Storage implements StorageInterface
     protected int $lockTimeout;
     protected int $lockWait;
 
-    public function __construct(string $filePath = null)
+    public function __construct(?string $filePath = null)
     {
         $this->loadEnv();
 
         $this->strictMode = ($_ENV['STORAGE_STRICT_MODE'] ?? 'false') === 'true';
         $this->filePath = $filePath ?? ($_ENV['STORAGE_FILE_NAME'] ?? 'storage.json');
-        $this->filePath = dirname(__DIR__)."/StorageFiles/".$this->filePath;
+        $this->filePath = dirname(__DIR__)."/RateLimiterFiles/".$this->filePath;
         $this->lockTimeout = (int) ($_ENV['STORAGE_LOCK_TIMEOUT'] ?? 3);
         $this->lockWait = (int) ($_ENV['STORAGE_LOCK_WAIT'] ?? 200000);
 

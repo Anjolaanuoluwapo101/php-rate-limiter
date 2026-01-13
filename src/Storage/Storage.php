@@ -5,6 +5,7 @@ namespace PHPRateLimiter\Storage;
 
 use Exception;
 
+
 abstract class Storage{
 
 
